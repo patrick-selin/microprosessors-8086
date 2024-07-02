@@ -1,0 +1,167 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+noname.com_ -- emu8086 assembler version: 4.08  
+ 
+[ 2.7.2024  --  10.38.23 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       include "emu8086.inc"
+[   2]        :                                       
+[   3]        :                                       ; START-OF-PROGRAM
+[   4]        :                                       org 100h
+[   5]    0100: E9 6A 01                              jmp start
+[   6]        :                                       
+[   7]        :                                       ; Memory variables:
+[   8]    0103: 0A 0D 54 68 65 20 73 74 72 69 6E 67   msg3    db  0ah, 0dh, "The string is a palindrome.", 0
+                20 69 73 20 61 20 70 61 6C 69 6E 64 
+                72 6F 6D 65 2E 00                   
+[   9]    0121: 0A 0D 54 68 65 20 73 74 72 69 6E 67   msg2    db  0ah, 0dh, "The string is NOT a palindrome.", 0
+                20 69 73 20 4E 4F 54 20 61 20 70 61 
+                6C 69 6E 64 72 6F 6D 65 2E 00       
+[  10]    0143: 45 6E 74 65 72 20 61 20 73 74 72 69   msg1    db  "Enter a string (max 128 characters): ", 0
+                6E 67 20 28 6D 61 78 20 31 32 38 20 
+                63 68 61 72 61 63 74 65 72 73 29 3A 
+                20 00                               
+[  11]    0169: 00 00 00 00 00 00 00 00 00 00 00 00   mystr   db  128 dup (0) ; Buffer to save the entered string
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00             
+[  12]    01E9: 00 00 00 00 00 00 00 00 00 00 00 00   mystrREV db 128 dup (0) ; Buffer to save the reversed string
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00             
+[  13]    0269: 0D 0A 00                              endl    db  0dh, 0ah, 0
+[  14]    026C: 00                                    length  db  0
+[  15]        :                                       
+[  16]    026D:                                       start:
+[  17]    026D: BE 43 01                              lea SI, msg1            ; Load address of message to SI
+[  18]    0270: E8 D4 00                              CALL PRINT_STRING       ; Print message
+[  19]        :                                       
+[  20]    0273: BF 69 01                              lea DI, mystr           ; Load address of buffer to DI
+[  21]    0276: BA 80 00                              mov DX, 128             ; Buffer size
+[  22]    0279: E8 7C 00                              CALL GET_STRING         ; Read string into buffer
+[  23]        :                                       
+[  24]    027C: BE 69 02                              lea SI, endl            ; Load address of newline to SI
+[  25]    027F: E8 C5 00                              CALL PRINT_STRING       ; Print newline
+[  26]        :                                       
+[  27]        :                                       ; Count the number of characters in the buffer mystr into CX:
+[  28]    0282: B9 00 00                              mov cx, 0               ; Start from 0 (use CX as counter to match SI size)
+[  29]    0285: BE 69 01                              lea SI, mystr           ; Point SI to mystr
+[  30]    0288:                                       tess:
+[  31]    0288: 8A 04                                 mov al, [SI]            ; Load character from mystr
+[  32]    028A: 3C 00                                 cmp al, 0               ; Check for null terminator
+[  33]    028C: 74 04                                 je seur                 ; Proceed to next step if null terminator found
+[  34]    028E: 41                                    inc cx                  ; Increment character counter
+[  35]    028F: 46                                    inc SI                  ; Increment pointer to next character
+[  36]    0290: EB F6                                 jmp tess                ; Repeat until null terminator found
+[  37]        :                                       
+[  38]        :                                       ; Copy mystr into mystrREV in reverse order
+[  39]    0292:                                       seur:
+[  40]    0292: 88 0E 6C 02                           mov length, cl          ; Store number of characters in length
+[  41]    0296: BE 69 01                              lea SI, mystr           ; Source buffer address
+[  42]    0299: BF E9 01                              lea DI, mystrREV        ; Result buffer address
+[  43]    029C: 8B D9                                 mov bx, cx              ; Use BX to store the length of the string
+[  44]    029E: 4B                                    dec bx                  ; Decrement BX to point to the last character
+[  45]        :                                       
+[  46]    029F:                                       coop:
+[  47]    029F: 83 FB 00                              cmp bx, 0               ; Check if all characters are copied
+[  48]    02A2: 7C 08                                 jl print_buffers        ; If yes, proceed to print buffers
+[  49]    02A4: 8A 00                                 mov al, [SI + bx]       ; Load character from source
+[  50]    02A6: 88 05                                 mov [DI], al            ; Copy character to destination
+[  51]    02A8: 47                                    inc DI                  ; Increment destination pointer
+[  52]    02A9: 4B                                    dec bx                  ; Decrement source pointer
+[  53]    02AA: EB F3                                 jmp coop                ; Repeat until all characters are copied
+[  54]        :                                       
+[  55]    02AC:                                       print_buffers:
+[  56]    02AC: BE 69 01                              lea SI, mystr
+[  57]    02AF: E8 95 00                              call PRINT_STRING       ; Print mystr
+[  58]    02B2: BE 69 02                              lea SI, endl
+[  59]    02B5: E8 8F 00                              call PRINT_STRING       ; Print newline
+[  60]        :                                       
+[  61]    02B8: BE E9 01                              lea SI, mystrREV
+[  62]    02BB: E8 89 00                              call PRINT_STRING       ; Print mystrREV
+[  63]    02BE: BE 69 02                              lea SI, endl
+[  64]    02C1: E8 83 00                              call PRINT_STRING       ; Print newline
+[  65]        :                                       
+[  66]        :                                       ; Compare strings. If equal => palindrome
+[  67]    02C4: 8A 0E 6C 02                           mov cl, length          ; Number of characters to compare
+[  68]    02C8: B5 00                                 mov ch, 0               ; Clear CH to ensure CX is correct
+[  69]    02CA: BE 69 01                              lea SI, mystr           ; Source buffer address
+[  70]    02CD: BF E9 01                              lea DI, mystrREV        ; Result buffer address
+[  71]    02D0:                                       compare_loop:
+[  72]    02D0: 83 F9 00                              cmp cx, 0               ; Test if end-of-comparison/buffer
+[  73]    02D3: 74 0D                                 je positive             ; If end of comparison, strings are equal
+[  74]    02D5: 8A 04                                 mov al, [SI]            ; Load character from source buffer
+[  75]    02D7: 8A 1D                                 mov bl, [DI]            ; Load character from result buffer
+[  76]    02D9: 3A C3                                 cmp al, bl              ; Compare characters
+[  77]    02DB: 75 0D                                 jne negative            ; If not equal, jump to negative
+[  78]    02DD: 46                                    inc SI                  ; Increment source pointer
+[  79]    02DE: 47                                    inc DI                  ; Increment destination pointer
+[  80]    02DF: 49                                    dec cx                  ; Decrement counter
+[  81]    02E0: EB EE                                 jmp compare_loop        ; Repeat until all characters are compared
+[  82]        :                                       
+[  83]    02E2:                                       positive:
+[  84]    02E2: BE 03 01                              lea SI, msg3            ; Yess, palindrome
+[  85]    02E5: E8 5F 00                              call PRINT_STRING       ; Print it
+[  86]    02E8: EB 06                                 jmp bort                ; and exit
+[  87]        :                                       
+[  88]    02EA:                                       negative:
+[  89]    02EA: BE 21 01                              lea SI, msg2            ; NOT a palindrome
+[  90]    02ED: E8 57 00                              call PRINT_STRING       ; Print it and exit
+[  91]        :                                       
+[  92]    02F0:                                       bort:
+[  93]    02F0: B8 00 4C                              mov ax, 4c00h           ; code for return to ms-dos
+[  94]    02F3: CD 21                                 int 21h                 ; call ms-dos terminate program
+[  95]    02F5: C3                                    ret
+[  96]        :                                       
+[  97]        :                                       ; Macro definitions
+[  98]    02F6: EB 4D 50 51 57 52 B9 00 00 83 FA 01   DEFINE_GET_STRING
+                76 3C 4A B4 00 CD 16 3C 0D 74 30 3C 
+                08 75 1E E3 F2 49 4F 50 B0 08 B4 0E 
+                CD 10 58 50 B0 20 B4 0E CD 10 58 50 
+                B0 08 B4 0E CD 10 58 EB D6 3B CA 73 
+                D2 88 05 47 41 B4 0E CD 10 EB C8 C6 
+                05 00 5A 5F 59 58 C3                
+[  99]    0345: EB 12 50 56 8A 04 3C 00 74 07 46 B4   DEFINE_PRINT_STRING
+                0E CD 10 EB F3 5E 58 C3             
+[ 100]    0359: EB 26 52 50 3D 00 00 75 0A 50 B0 30   DEFINE_PRINT_NUM
+                B4 0E CD 10 58 EB 12 3D 00 00 79 0A 
+                F7 D8 50 B0 2D B4 0E CD 10 58 E8 05 
+                00 58 5A C3                         
+[ 101]    0381: EB 50 50 53 51 52 B9 01 00 BB 10 27   DEFINE_PRINT_NUM_UNS
+                3D 00 00 74 32 83 FB 00 74 35 83 F9 
+                00 74 04 3B C3 72 14 B9 00 00 BA 00 
+                00 F7 F3 04 30 50 8A C0 B4 0E CD 10 
+                58 8B C2 50 BA 00 00 8B C3 2E F7 36 
+                D1 03 8B D8 58 EB CE 50 B0 30 B4 0E 
+                CD 10 58 5A 59 5B 58 C3 0A 00       
+[ 102]        :                                       
+[ 103]        :                                       end                         ; END-OF-PROGRAM
+[ 104]        :                                       
+[ 105]        :                                       
+[ 106]        :                                       
+ 
+===================================================================================================
+ 
+
+
+
+
+===================================================================================================

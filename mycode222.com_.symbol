@@ -1,0 +1,36 @@
+< THE SYMBOL TABLE >  mycode222.com_  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+MSG1                     	00103     	1         	VAR       	(NOSEG)   
+MYSTR                    	00129     	1         	VAR       	(NOSEG)   
+ENDL                     	001A9     	1         	VAR       	(NOSEG)   
+START                    	001AC     	-1        	LABEL     	(NOSEG)   
+BORT                     	001C7     	-1        	LABEL     	(NOSEG)   
+GET_STRING               	001CF     	-1        	NEAR      	(NOSEG)   
+WAIT_FOR_KEY_LOC1TMP     	001DC     	-1        	LABEL     	(NOSEG)   
+ADD_TO_BUFFER_LOC2TMP    	00206     	-1        	LABEL     	(NOSEG)   
+EXIT_LOC2TMP             	00214     	-1        	LABEL     	(NOSEG)   
+EMPTY_BUFFER_LOC1TMP     	00217     	-1        	LABEL     	(NOSEG)   
+SKIP_PROC_GET_STRING_LOC1TMP	0021C     	-1        	LABEL     	(NOSEG)   
+PRINT_STRING             	0021E     	-1        	NEAR      	(NOSEG)   
+NEXT_CHAR_LOC3TMP        	00220     	-1        	LABEL     	(NOSEG)   
+PRINTED_LOC3TMP          	0022D     	-1        	LABEL     	(NOSEG)   
+SKIP_PROC_PRINT_STRING_LOC3TMP	00230     	-1        	LABEL     	(NOSEG)   
+PRINT_NUM                	00232     	-1        	NEAR      	(NOSEG)   
+NOT_ZERO_LOC4TMP         	00243     	-1        	LABEL     	(NOSEG)   
+POSITIVE_LOC4TMP         	00252     	-1        	LABEL     	(NOSEG)   
+PRINTED_LOC4TMP          	00255     	-1        	LABEL     	(NOSEG)   
+SKIP_PROC_PRINT_NUM_LOC4TMP	00258     	-1        	LABEL     	(NOSEG)   
+PRINT_NUM_UNS            	0025A     	-1        	NEAR      	(NOSEG)   
+BEGIN_PRINT_LOC5TMP      	00269     	-1        	LABEL     	(NOSEG)   
+CALC_LOC5TMP             	00277     	-1        	LABEL     	(NOSEG)   
+SKIP_LOC5TMP             	0028B     	-1        	LABEL     	(NOSEG)   
+PRINT_ZERO_LOC5TMP       	0029B     	-1        	LABEL     	(NOSEG)   
+END_PRINT_LOC5TMP        	002A3     	-1        	LABEL     	(NOSEG)   
+TEN_LOC5TMP              	002A8     	2         	VAR       	(NOSEG)   
+SKIP_PROC_PRINT_NUM_UNS_LOC6TMP	002AA     	-1        	LABEL     	(NOSEG)   
+===================================================================================================
+[ 2.7.2024  --  10.04.01 ] 
+< END >
+ 

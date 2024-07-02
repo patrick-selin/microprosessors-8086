@@ -1,0 +1,24 @@
+#make_bin#
+
+
+; Load
+mov al,255
+
+; Load:
+mov bl,1
+
+; Load
+mov cl,2
+
+; Add
+add al,bl
+
+; Sub
+sub al,cl
+
+
+HLT           ; halt!
+
+
+
+
