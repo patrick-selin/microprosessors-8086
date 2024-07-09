@@ -15,7 +15,7 @@ input_loop:
     call putc       ; 
     jmp input_loop  ; 
 
-exitus:
+exit:
     call putcb      ; 
     mov ax, 4c00h   ;
     int 21h         ;
