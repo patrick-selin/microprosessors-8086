@@ -2,8 +2,8 @@
     	ORG 	100h
     	JMP 	START	; Jump to the beginning of the code	
 X   	DW 	    04H      	; Variable X = 4	
-SQ  	DW 	?        	; Variable SQ = square of X	
-CB  	DW 	?        	; Variable CB = cube of X	
+SQ  	DW 	    ?        	; Variable SQ = square of X	
+CB  	DW 	    ?        	; Variable CB = cube of X	
 START:  MOV 	AX,X    	; Load X to AX	
     	MOV 	BX,X    	; Load X to BX	
     	MUL 	BX      	;Multiply AX and BX	
