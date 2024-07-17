@@ -24,3 +24,4 @@ exit:
     int 21h             ; call ms-dos terminate program
 
 ret
+
