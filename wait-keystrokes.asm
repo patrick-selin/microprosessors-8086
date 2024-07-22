@@ -1,5 +1,5 @@
 
-; Program to wiat for a keystroke
+; Program to wait for a keystroke
 
 org 100h
 
